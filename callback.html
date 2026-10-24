@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Login — Dengernih</title>
+<link rel="icon" href="logo.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main><div class="wrap">
+  <h1>Finishing login…</h1>
+  <p id="msg">Returning to the Dengernih Uploader on this computer.</p>
+  <p id="fallback" style="display:none">If nothing happens, copy this code into the uploader window:<br>
+    <code id="code" style="word-break:break-all"></code></p>
+</div></main>
+<script>
+  var q = new URLSearchParams(location.search);
+  var code = q.get("code");
+  if (code) {
+    document.getElementById("code").textContent = code;
+    setTimeout(function () { document.getElementById("fallback").style.display = "block"; }, 3000);
+    location.replace("http://127.0.0.1:8765/callback" + location.search);
+  } else {
+    document.getElementById("msg").textContent = "Login was cancelled or failed: " + (q.get("error_description") || q.get("error") || "no code");
+  }
+</script>
+</body>
+</html>
